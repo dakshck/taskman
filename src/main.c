@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+void addtask(void);
+void lstask(void);
+
+struct Task {
+	int id;
+	char title[150];
+	bool completed;
+};
+
+struct taskdata {
+	struct Task *task;
+	int capacity;
+	int taskcount;
+};
+
+struct taskdata taskdata = {0};
+
+int main(void) {
+	int choice = 0;
+	while(choice != 3) {
+		printf("\n=== TASKMAN ===\n");
+		printf("\n1. Add task\n");
+		printf("2. List tasks\n");
+		printf("3. Exit\n\n> ");
+		scanf("%d", &choice);
+
+			switch (choice) {
+				case 1:
+					addtask();
+					printf("---------------------------\n");
+				break;
+				case 2:
+					lstask();
+					printf("---------------------------\n");
+				break;
+				default: 
+					if(choice != 3) {
+						printf("Undefined behaviour\n");
+					}
+			}
+			
+		}
+	printf("EXIT\n");
+	free(taskdata.task);
+	taskdata.task = NULL;
+	return 0;
+
+}
+
+void addtask(void) {
+	struct Task *buff;
+	if(taskdata.capacity == 0) {
+		buff = calloc(1, sizeof(struct Task));
+			if(buff == NULL) {
+				printf("ERROR: Failed to allocate memory\n");
+				return;
+			}
+			else {
+				taskdata.task = buff;
+				buff = NULL;
+				taskdata.capacity++;
+			}
+	}
+	else if(taskdata.capacity == taskdata.taskcount) {
+		buff = realloc(taskdata.task, sizeof(struct Task) * (taskdata.capacity * 2));
+			if (buff == NULL) {
+				printf("ERROR: Failed to reallocate memory\n");
+				return;
+			}
+			else{
+				taskdata.task = buff;
+				buff = NULL;
+				taskdata.capacity *= 2;
+			}
+	}
+
+	printf("Enter Task %d: ", taskdata.taskcount + 1);
+	getchar();
+	fgets(taskdata.task[taskdata.taskcount].title, sizeof(taskdata.task[taskdata.taskcount].title), stdin);
+	taskdata.task[taskdata.taskcount].id = taskdata.taskcount + 1;
+	taskdata.task[taskdata.taskcount].completed = false;
+	taskdata.taskcount++;
+}
+
+void lstask(void) {
+	for(int i = 0; i < taskdata.taskcount; i++) {
+		printf("Task %d: [%c] %s", taskdata.task[i].id, taskdata.task[i].completed ? 'x' : ' ', taskdata.task[i].title);
+	}
+} 
+
