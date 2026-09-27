@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -22,7 +23,7 @@ struct taskdata taskdata = {0};
 
 int main(void) {
 	int choice = 0;
-	while(choice != 3) {
+	while(choice != 4) {
 		printf("\n=== TASKMAN ===\n");
 		printf("\n1. Add task\n");
 		printf("2. List tasks\n");
@@ -42,6 +43,7 @@ int main(void) {
 				case 3:
 					deltask();
 					printf("---------------------------\n");
+				break;
 				default: 
 					if(choice != 4) {
 						printf("Undefined behaviour\n");
@@ -88,14 +90,23 @@ void addtask(void) {
 	printf("Enter Task %d: ", taskdata.taskcount + 1);
 	getchar();
 	fgets(taskdata.task[taskdata.taskcount].title, sizeof(taskdata.task[taskdata.taskcount].title), stdin);
-	taskdata.task[taskdata.taskcount].id = taskdata.taskcount + 1;
-	taskdata.task[taskdata.taskcount].completed = false;
-	taskdata.taskcount++;
+	taskdata.task[taskdata.taskcount].title[strcspn(taskdata.task[taskdata.taskcount].title, "\n")] = '\0'; 
+		if(taskdata.task[taskdata.taskcount].title[0] != '\0') {
+			taskdata.task[taskdata.taskcount].id = taskdata.taskcount + 1;
+			taskdata.task[taskdata.taskcount].completed = false;
+			taskdata.taskcount++;
+			system("clear");
+			printf("Task Added, id: %d\n", taskdata.task[taskdata.taskcount - 1].id);
+		}
+		else{
+			system("clear");
+			printf("No input from user; the task has been discarded\n");
+		}
 }
 
 void lstask(void) {
 	for(int i = 0; i < taskdata.taskcount; i++) {
-		printf("Task %d: [%c] %s", taskdata.task[i].id, taskdata.task[i].completed ? 'x' : ' ', taskdata.task[i].title);
+		printf("Task %d: [%c] %s\n", taskdata.task[i].id, taskdata.task[i].completed ? 'x' : ' ', taskdata.task[i].title);
 	}
 }
  
@@ -103,9 +114,25 @@ void deltask(void) {
 	lstask();
 	int choice = 0;
 	printf("Enter the Task id to del: ");
-	scanf("%d" &choice);
-
+	scanf("%d", &choice); 
+	if(choice <= taskdata.taskcount && choice >= 1) {
+		for(int i = choice - 1; i < (taskdata.taskcount - 1); i++) {
+			taskdata.task[i] = taskdata.task[i + 1];
+		}
 	
+		taskdata.taskcount--;
+
+		for(int j = 0; j < taskdata.taskcount; j++) {
+			taskdata.task[j].id = j + 1;
+		}
+
+		system("clear");
+		printf("Task deleted!\n");
+
+	}
+	else {
+		printf("Err: Invalid id\n");
+	}
 
 }
 
