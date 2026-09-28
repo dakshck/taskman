@@ -21,6 +21,7 @@ struct taskdata {
 };
 
 struct taskdata taskdata = {0};
+int checkinput;
 
 int main(void) {
 	int choice = 0;
@@ -31,8 +32,10 @@ int main(void) {
 		printf("3. Toggle task\n");
 		printf("4. Delete task\n");		
 		printf("5. Exit\n\n> ");
-		scanf("%d", &choice);
-
+		checkinput = scanf("%d", &choice);
+		if(checkinput != 1) {
+			while(getchar() != '\n');
+		}
 			switch (choice) {
 				case 1:
 					addtask();
@@ -120,7 +123,10 @@ void deltask(void) {
 	lstask();
 	int choice = 0;
 	printf("Enter the Task id to del: ");
-	scanf("%d", &choice); 
+	checkinput = scanf("%d", &choice); 
+	if(checkinput != 1) {
+		while(getchar() != '\n');
+	}	
 	if(choice <= taskdata.taskcount && choice >= 1) {
 		for(int i = choice - 1; i < (taskdata.taskcount - 1); i++) {
 			taskdata.task[i] = taskdata.task[i + 1];
@@ -146,8 +152,10 @@ void toggletask(void) {
 	int choice;
 	lstask();
 	printf("Enter the task id to toggle completed: ");
-	scanf("%d", &choice);
-
+	checkinput = scanf("%d", &choice);
+	if(checkinput != 1) {
+    		while(getchar() != '\n');
+	}
 	if(choice > taskdata.taskcount || choice <= 0) {
 		printf("Undefined Behaviour, task id doesnt exist!\n");
 		return;
@@ -160,7 +168,7 @@ void toggletask(void) {
 	else {
 		taskdata.task[choice - 1].completed = true;
 		system("clear");
-		printf("Task %d was toggles as COMPLETED\n", choice);
+		printf("Task %d was toggled as COMPLETED\n", choice);
 	}
 
 }
