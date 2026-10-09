@@ -3,13 +3,12 @@
 FILE *ptr;
 
 int filevalidate(void) {
-	ptr = fopen("tasklog.txt", "a+");	
+	ptr = fopen("tasklog.txt", "r+");	
 	if(ptr == NULL) {
-		perror("ERROR: ");
-		printf("Previous Log not found. Starting fresh...\n");
+		printf("Previous Log not found.\nStarting fresh...\n");
 		ptr = fopen("tasklog.txt", "w");
 		if(ptr == NULL) {
-			perror("Cannot start fresh, ");
+			perror("Cannot start fresh");
 			return -1;
 		}
 	}
@@ -36,15 +35,18 @@ int filevalidate(void) {
 void truncatelog(void) {
 	char confirm_erase;
 	printf("Are you sure you want to erase all logs? (Enter y to confirm.)\n: ");
-	scanf("%c", &confirm_erase);
+	scanf(" %c", &confirm_erase);
 	if(confirm_erase == 'y' || confirm_erase == 'Y') {
 		ptr = fopen("tasklog.txt", "w+");
 		if(ptr == NULL) {
-			perror("Error erasing logs: ");
+			perror("Error erasing logs");
 			return;
 		}
+		else{printf("Logs cleared succesfully\n");}
+
 	}
-	printf("Logs cleared succesfully\n");
+	else{printf("No Logs were cleared.\n");}
+	return;
 }
 
 void closefile(FILE *ptr) {
