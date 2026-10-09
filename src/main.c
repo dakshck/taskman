@@ -1,5 +1,6 @@
 #include "task.h"
 #include "input.h"
+#include "filelog.h"
 
 struct taskdata taskdata = {0};
 
