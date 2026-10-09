@@ -6,6 +6,7 @@ add_executable(taskman
 	src/main.c
 	src/task.c
 	src/input.c
+	src/filelog.c
 )
 
 target_include_directories(taskman PRIVATE

@@ -6,6 +6,9 @@ struct taskdata taskdata = {0};
 
 int main(void) {
 	int choice = 0;
+	if(filevalidate() != 0) {
+		printf("Failed to initialise log memory.\n");
+	}
 	while(choice != 5) {
 		printf("\n=== TASKMAN ===\n");
 		printf("\n1. Add task\n");
@@ -39,7 +42,7 @@ int main(void) {
 			}	
 
 	}
-
+	closefile(ptr);
 	printf("EXIT\n");
 	free(taskdata.task);
 	taskdata.task = NULL;
