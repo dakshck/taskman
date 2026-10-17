@@ -5,10 +5,18 @@
 struct taskdata taskdata = {0};
 
 int main(void) {
+	struct Task *buff;
 	int choice = 0;
-	if(filevalidate() != 0) {
-		printf("Failed to initialise log data.\n");
-	}
+	int buff_str = 0;
+	buff_str = filevalidate();
+	buff = calloc(buff_str + 2, sizeof(struct Task));
+		if(buff == NULL) {
+			printf("Initial allocation failed\n");
+		} else {
+			taskdata.task = buff;
+			taskdata.capacity = buff_str;
+		}
+	taskfetch();
 	while(choice != 6) {
 		printf("\n=== TASKMAN ===\n");
 		printf("\n1. Add task\n");
@@ -21,6 +29,7 @@ int main(void) {
 			switch (choice) {
 				case 1:
 					addtask();
+					writelog();
 					printf("---------------------------\n");
 				break;
 				case 2:
@@ -29,14 +38,16 @@ int main(void) {
 				break;
 				case 3:
 					toggletask();
+					writelog();
 					printf("---------------------------\n");
 				break;
 				case 4:
 					deltask();
+					writelog();
 					printf("---------------------------\n");
 				break;
 				case 5: 
-					truncatelog();
+					printf("ERROR\n");
 					printf("---------------------------\n");
 				break;
 				default: 
@@ -47,7 +58,6 @@ int main(void) {
 			}	
 
 	}
-	closefile(ptr);
 	printf("EXIT\n");
 	free(taskdata.task);
 	taskdata.task = NULL;

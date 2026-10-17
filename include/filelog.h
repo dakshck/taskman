@@ -6,8 +6,8 @@
 #include "task.h"
 
 int filevalidate(void);
-void truncatelog(void);
-void closefile(FILE *ptr);
+void taskfetch(void);
+int writelog(void);
 
 extern FILE *ptr;
 
