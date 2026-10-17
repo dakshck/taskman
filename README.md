@@ -10,22 +10,25 @@ This is my first repo where I actually learned a lot.
 - Dynamic task memory allocation
 - Multiple source and header files
 - CMake-based build system
+- Logs tasks in a file to be accessed afterwards
 
 ## Project Structure
 
 ```text
-taskman/
-├── CMakeLists.txt
-├── include/
-│   ├── input.h
-│   └── task.h
-├── src/
-│   ├── input.c
-│   ├── main.c
-│   └── task.c
-├── .gitignore
-├── LICENSE
-└── README.md
+.
+|-- CMakeLists.txt
+|-- LICENSE
+|-- README.md
+|-- include
+|   |-- filelog.h
+|   |-- input.h
+|   `-- task.h
+|-- src
+|   |-- filelog.c
+|   |-- input.c
+|   |-- main.c
+|   `-- task.c
+`-- tasklog.txt
 ```
 
 ## Building
