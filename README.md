@@ -5,7 +5,7 @@ This is my first repo where I actually learned a lot.
 
 ## Current Features
 
-- Supports CRUD (except append)
+- Supports CRUD 
 - Toggle task to completed
 - Dynamic task memory allocation
 - Multiple source and header files
@@ -22,13 +22,14 @@ This is my first repo where I actually learned a lot.
 |-- include
 |   |-- filelog.h
 |   |-- input.h
-|   `-- task.h
-|-- src
-|   |-- filelog.c
-|   |-- input.c
-|   |-- main.c
-|   `-- task.c
-`-- tasklog.txt
+|   |-- task.h
+|   `-- taskman.h
+`-- src
+    |-- filelog.c
+    |-- input.c
+    |-- main.c
+    |-- task.c
+    `-- taskman.c
 ```
 
 ## Building
