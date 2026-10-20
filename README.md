@@ -12,6 +12,10 @@ This is my first repo where I actually learned a lot.
 - CMake-based build system
 - Logs tasks in a file to be accessed afterwards
 
+## Preview
+
+![Taskman CLI preview](assets/taskman-preview.png)
+
 ## Project Structure
 
 ```text
