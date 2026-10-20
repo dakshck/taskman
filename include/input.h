@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int inputval(int checkinput, int choice);
 

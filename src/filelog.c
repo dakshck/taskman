@@ -9,6 +9,7 @@ int filevalidate(void) {
 			perror("Cannot start fresh");
 			return -1;
 		}
+		return 0;
 	}
 	else{
 		char length[150];
@@ -74,6 +75,8 @@ int writelog(void) {
 				taskdata.task[i].title,
 				taskdata.task[i].completed);
 	}
+	fclose(ptr);
+	return 0;
 }
 
 

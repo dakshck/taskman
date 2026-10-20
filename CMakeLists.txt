@@ -4,6 +4,7 @@ project(taskan)
 
 add_executable(taskman 
 	src/main.c
+	src/taskman.c
 	src/task.c
 	src/input.c
 	src/filelog.c
